@@ -1,0 +1,18 @@
+echo 'for Green in /bin /boot /dev /etc /home /lib /opt /root /sbin /shlib /tmp /usr /var /win98' > /usr/local/bin/findnogrp-root 
+echo 'do' >> /usr/local/bin/findnogrp-root
+echo 'find $Green -nogroup -exec chgrp root {} \; &' >> /usr/local/bin/findnogrp-root
+echo 'done'  >> /usr/local/bin/findnogrp-root
+echo 'for grEEn in /bin /boot /dev /etc /home /lib /opt /root /sbin /shlib /tmp /usr /var /win98' > /usr/local/bin/findnoown-root
+echo 'do' >> /usr/local/bin/findnoown-root
+echo 'find $grEEn -nouser -exec chown root {} \; &' >> /usr/local/bin/findnoown-root
+echo 'done' >> /usr/local/bin/findnoown-root
+echo 'for GGreen in /bin /boot /dev /etc /home /lib /opt /root /sbin /shlib /tmp /usr /var /win98' > /usr/local/bin/findnogrp-file
+echo 'do' >> /usr/local/bin/findnogrp-file
+echo 'find $GGreen -nogroup > $HOME/nogroup.txt &' >> /usr/local/bin/findnogrp-file
+echo 'done' >> /usr/local/bin/findnogrp-file
+echo 'for ggrEEn in /bin /boot /dev /etc /home /lib /opt /root /sbin /shlib /tmp /usr /var /win98' > /usr/local/bin/findnoown-file
+echo 'do' >> /usr/local/bin/findnoown-file
+echo 'find $ggrEEn -nouser > $HOME/nouser.txt &' >> /usr/local/bin/findnoown-file
+echo 'done' >> /usr/local/bin/findnoown-file
+chmod 555 /usr/local/bin/findno*
+chown root.root /usr/local/bin/findno*

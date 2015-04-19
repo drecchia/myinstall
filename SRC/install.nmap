@@ -1,0 +1,5 @@
+cp ./SRC/nmap* /usr/local/bin/
+setterm -bold on;echo "                     Ok"
+echo "Adicionado /usr/local/bin/nmaps  - versao texto"
+echo "Adicionado /usr/local/bin/nmapfe - versao grafica"
+setterm -bold off

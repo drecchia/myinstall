@@ -1,0 +1,105 @@
+clear;setterm -blink on -bold on -foreground red;echo "                      Front End to Kill User - By ALASKA ";setterm -default
+setterm -bold on;echo "                       Selecione as opcoes que desejar";setterm -bold off
+kU="ku"
+kus="kuscript"
+trap "echo You are exiting using Crtl+C.. I could del your pc" SIGINT
+trap "echo Porque vc ker por em background?" SIGTSTP
+echo -e "\n"  
+echo "1                    SHOW USERS LOGGED ON"
+echo "2      Kills all users execpt you - Be careful with X"
+echo "3      Beeps with each termination"
+echo "4      Adds a header when -v (--verbose) is used"
+echo "5      Displays default kill message"
+echo "6      Kills any user in <group>"
+echo "7      Kills any user in <gid>"
+echo "8      <minutes> kills any user idle <minutes> or greater"
+echo "9      Prompt for permission before a user is terminated"
+echo "10     Prints specifed message to users tty before termination"
+echo "11     <string> matches <string> in login name or tty"
+echo "12     Kills any telnets"
+echo "13     Kills user on <tty>"
+echo "14     <user> matches any login with <user>"
+echo "15     Will print information about each user terminated"
+setterm -bold on -foreground green;echo "16                               DO IT NOW";setterm -default
+echo "17     Make a Small Script with the selected options"
+setterm -bold on;echo "18                                  EXIT";setterm -bold off
+read option
+case $option in
+1) $kU;
+pauseme;
+$kus;;
+2) echo -e "-a \c" >> /tmp/kus;
+$kus;;
+3) echo -e "-b \c" >> /tmp/kus;
+$kus;;
+4) echo -e "-h \c" >> /tmp/kus;
+$kus;;
+5) echo -e "-K \c" >> /tmp/kus;
+$kus;;
+6) echo -e "-g \c" >> /tmp/kus;
+$kus;;
+7) echo -e "-G \c" >> /tmp/kus;
+$kus;;
+8) echo -e "-i \c" >> /tmp/kus;
+$kus;;
+9) echo -e "-p \c" >> /tmp/kus;
+$kus;;
+10) echo "Qual a mensagem que voce deseja dar ao infeliz?";
+read infelix;
+echo -e "-m $infelix \c" >> /tmp/kus;
+$kus;;
+11) echo -e "-s \c" >> /tmp/kus;
+$kus;;
+12) echo -e "-t \c" >> /tmp/kus;
+$kus;;
+13) echo "Qual tty voce quer killar?";
+read tkill;
+echo -e "-T $tkill \c" >> /tmp/kus;
+$kus;;
+14) echo "Qual o nome do infelix?";
+read ninf;
+echo -e "-u $ninf \c" >> /tmp/kus;
+$kus;;
+15) verbose="-v";
+echo -e "-v \c" >> /tmp/kus;
+$kus;;
+16) chmod 700 /tmp/kus*;
+chown $USER /tmp/kus*;
+echo -e "ku \c" > /tmp/kus2;
+cat /tmp/kus2 /tmp/kus >> /tmp/kus3;
+. /tmp/kus3;;
+17) echo "KilluserScript foi criado em seu home com as opcoes selecionadas";
+chmod 700 /tmp/kus*;
+chown $USER /tmp/kus*;
+echo -e "ku \c" > /tmp/kus2;
+cat /tmp/kus2 /tmp/kus >> /tmp/kus3;
+mv -f /tmp/kus3 $HOME/KilluserScript;
+chmod 700 $HOME/KilluserScript;
+echo -e '\n' >> $HOME/KilluserScript;;
+18) clear;
+setterm -bold on -foreground green;
+echo "            Exiting - tks to use KuScript - by ALASKA";
+setterm -default;;
+*) echo "            Voce tem ke escolher uma opcao";
+pauseme;
+$kus;;
+esac
+if [ -x /tmp/kus ];then
+	rm /tmp/kus*
+fi
+
+
+# The following are some variables that can be used in
+# the kill message:
+#
+#		%l  (for the users login name)
+#		%r  (for the users real name)
+#		%g  (for the group id)
+#		%G  (for the group name)
+#		%h  (for the home directory)
+#		%H  (for the host)
+#		%p  (for the pid)
+#		%s  (for the shell)
+#		%t  (for the tty)
+#		%V  (for program name and version)
+#

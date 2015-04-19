@@ -1,0 +1,32 @@
+#!/bin/sh
+mens='/var/log/messages'
+if [ -f /var/log/messages ]; then
+	if [ -e /etc/log ];then
+cat $mens | grep -i "in.identd" > /etc/log/in.identd ;
+cat $mens | grep -i decfingerd > /etc/log/decfingerd ;
+cat /var/log/messages | grep -i sendmail > /etc/log/sendmail ;
+cat /var/log/messages | grep -i sentry > /etc/log/sentry.log ;
+cat /var/log/messages | grep -i scandetd > /etc/log/scandetd ;
+cat /var/log/messages | grep -i kernel > /etc/log/kernel ;
+cat /var/log/messages | grep -i login > /etc/log/login ;
+cat /var/log/messages | grep -i pppd > /etc/log/pppd ;
+cat /var/log/messages | grep -i init > /etc/log/init ;
+cat /var/log/messages | grep -i syslogd > /etc/log/syslog ;
+cat /var/log/messages | grep -i named > /etc/log/named ;
+cat /var/log/messages | grep -i amd > /etc/log/amd ;
+cat /var/log/messages | grep -i modprobe > /etc/log/modprobe ;
+cat /var/log/messages | grep -i last > /etc/log/last ;
+else
+mkdir /etc/log
+fi ;
+fi ;
+if [ -f /var/log/tcpd.log ]; then
+cat /var/log/tcpd.log > /etc/log/tcpd ;
+fi ;
+cd /var/adm
+if [ -f /var/adm/ping.log ]; then
+cat ping.log > /etc/log/ping ;
+fi ;
+if [ -f /var/adm/phf.log ]; then
+cat phf.log > /etc/log/phf ;
+fi ;

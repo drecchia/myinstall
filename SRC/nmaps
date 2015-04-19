@@ -1,0 +1,393 @@
+#!/bin/bash
+# Desenvolvido sob Slackware 7.1 por ALASKA
+# Sob conduta para Nmap 2.54BETA7
+# Este arkivo deve se xamar nmaps - se alterado naum funcionara..
+stblak="setterm -foreground black"
+stblue="setterm -foreground blue"
+stgreen="setterm -foreground green"
+stcyan="setterm -foreground cyan"
+stmagenta="setterm -foreground magenta"
+styellow="setterm -foreground yellow"
+stwhite="setterm -foreground white" 
+stdefault="setterm -default" 
+stblakb="setterm -bold on -foreground black"
+stblueb="setterm -bold on -foreground blue"
+stgreenb="setterm -bold on -foreground green"
+stcyanb="setterm -bold on -foreground cyan"
+stmagentab="setterm -bold on -foreground magenta"
+styellowb="setterm -bold on -foreground yellow"
+stwhiteb="setterm -bold on -foreground white"
+stredb="setterm -bold on -foreground red"
+clear;$styellowb;echo "                       Welcome to Nmap Script - by ALASKA  ";$stdefault
+setterm -bold on;echo "                       Choose the options that you wanna";setterm -bold off
+echo '(00)  Always resolve ips'
+echo '(01)  TCP connect() port scan (default)'
+echo '(02)  TCP SYN stealth port scan (best all-around TCP scan)'
+echo '(03)  UDP port scan'
+echo '(04)  ping scan (Find any reachable machines)'
+echo '(05)  Stealth FIN, Xmas, or Null scan (experts only)'
+echo '(06)  RPC / Identd scan (use with other scan types)'
+echo '(07)  Use TCP/IP fingerprinting to guess remote operating system'
+echo '(08)  Ports to scan - I have a list right here!'
+echo '(09)  Only scans ports listed in nmap-services'
+echo '(10)  Verbose. Its use is recommended. Use twice for greater effect.'
+echo '(11)  Dont ping hosts (needed to scan www.microsoft.com and others)'
+echo '(12)  Hide scan using many decoys(that must be online)' 
+echo '(13)  <Paranoid|Sneaky|Polite|Normal|Aggressive|Insane> General timing policy'
+echo '(14)  Never do DNS resolution'
+echo '(15)  Output normal/XML/grepable scan logs to <logfile>'
+echo '(16)  Get targets from file'
+echo '(17)  Specify source address or network interface'
+echo '(18)                   Look at a list of trojans or ports!'
+$stredb;echo '(19)                               Execute it';$stdefault
+$stblueb;echo '(20)            Make a little script with the selected options';$stdefault
+$stcyanb;echo '(21)                              Exit now!!!';$stdefault
+read multiply
+if [ "$multiply" = "0" -o "$multiply" = "00" ];then
+	echo -e '-R \c' >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "1" -o "$multiply" = "01" ];then
+	echo -e '-sT \c' >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "2" -o "$multiply" = "02" ];then
+	echo -e '-sS \c' >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "3" -o "$multiply" = "03" ];then
+	echo -e '-sU \c' >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "4" -o "$multiply" = "04" ];then
+	echo -e '-sP \c' >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "5" -o "$multiply" = "05" ];then
+	echo 'Stealth FIN(-sF), Xmas(-sX), or Null scan(-N)?[case sensitive]'
+	read expert
+	echo -e "$expert \c" >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "6" -o "$multiply" = "06" ];then
+	echo "1- RPC"
+	echo "2- Identd scan" 
+	read rpcscan
+	if [ "$rpcscan" = "1" ] ;then
+		echo -e '-sR \c' >> /tmp/nmapsc
+	else	
+		echo -e '-I \c' >> /tmp/nmapsc
+	fi
+	nmaps
+fi
+if [ "$multiply" = "7" -o "$multiply" = "07" ];then
+	echo -e '-O \c' >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "8" -o "$multiply" = "08" ];then
+	setterm -bold on
+	echo '(B)o - 1349,1999,5400,8787,31337,31338,54320'
+	echo '(N)etbus - 12345,12346,20034'
+	echo '(S)ub7 - 1243,6711,6712,6713,6776,27374'
+	echo '(W)incrash - 5742,5741,5714,4092,3024,2583'
+	echo 'Voce deve escolher algumas portas! Example "1-1024,1080,6666,31337"'
+	setterm -bold off
+	read portselect
+	echo -e "-p $portselect \c" >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "9" -o "$multiply" = "09" ];then
+	echo -e '-F \c' >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "10" ];then
+	echo -e '-v \c' >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "11" ];then
+	echo -e '-P0 \c' >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "12" ];then
+	echo "Do you now how to use decoys????"
+	echo -e '-D \c' >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "13" ];then
+	echo 'General timing policy'
+	echo '(P)aranoid / (S)neaky / P(o)lite / (N)ormal / (A)ggressive / (I)nsane'
+	read paranoica
+	if [ "$paranoica" = "p" -o "$paranoica" = "P" ];then
+		echo -e "-T Paranoid \c" >> /tmp/nmapsc
+	fi
+	if [ "$paranoica" = "s" -o "$paranoica" = "S" ];then
+		echo -e "-T Sneaky \c" >> /tmp/nmapsc
+        fi
+	if [ "$paranoica" = "o" -o "$paranoica" = "O" ];then
+                echo -e "-T Polite \c" >> /tmp/nmapsc
+        fi
+	if [ "$paranoica" = "n" -o "$paranoica" = "N" ];then
+                echo -e "-T Normal \c" >> /tmp/nmapsc
+        fi
+	if [ "$paranoica" = "A" -o "$paranoica" = "a" ];then
+                echo -e "-T Aggressive \c" >> /tmp/nmapsc
+        fi
+	if [ "$paranoica" = "i" -o "$paranoica" = "I" ];then
+                echo -e "-T Insane \c" >> /tmp/nmapsc
+        fi
+	nmaps
+fi
+if [ "$multiply" = "14" ];then
+	echo -e '-n \c' >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "15" ];then
+	echo "Selecione o tipo da saida para o log"
+	echo '1- Normal'
+	echo '2- XML'
+	echo '3- grepable'
+	read XML
+	if [ "$XML" = "1" ];then
+	echo 'O arkivo de log sera alocano no seu Home'
+	echo -e "-oN $HOME/nmaplog.txt \c" >> /tmp/nmapsc
+	fi
+        if [ "$XML" = "2" ];then
+        echo 'O arkivo de log sera alocano no seu Home'
+        echo -e "-oX $HOME/nmaplog.txt \c" >> /tmp/nmapsc
+        fi
+        if [ "$XML" = "3" ];then
+        echo 'O arkivo de log sera alocano no seu Home'
+        echo -e "-oG $HOME/nmaplog.txt \c" >> /tmp/nmapsc
+        fi
+	nmaps
+fi
+if [ "$multiply" = "16" ];then
+	echo 'Where is the file with the list?'	
+	read wherelist
+	echo -e "-iL $wherelist \c" >> /tmp/nmapsc
+	nmaps
+fi
+if [ "$multiply" = "17" ];then
+	echo '1- Specify the source address'
+	echo '2- Specify the network interface'
+	read ssa
+	if [ "$ssa" = "1" ];then
+		echo 'Qual o endereco de origem?'
+		read ogry
+		echo -e "-S $ogry \c" >> /tmp/nmapsc
+	else
+		echo 'Qual a network interface?(devicename)'
+		read ny
+		echo -e "-e $ny \c" >> /tmp/nmapsc
+	fi
+	nmaps
+fi
+if [ "$multiply" = "18" ];then
+	echo "Digite o nome do Trojan ou o Numero da Porta que Deseja"
+	read trojport
+	tail -n166 /usr/local/bin/nmaps | grep -i $trojport
+	pauseme
+	nmaps
+fi
+if [ "$multiply" = "19" ];then
+	echo 'Executando...'
+	echo -e 'nmap \c' >> /tmp/nmapsc2
+	cat /tmp/nmapsc >> /tmp/nmapsc2
+	echo "Qual ip ou classe de ip voce deseja scanear?"
+	read classeip
+	echo -e "$classeip \c" >> /tmp/nmapsc2
+	VARAVEL=`cat /tmp/nmapsc2`
+	rm /tmp/nmapsc*
+	$VARAVEL
+	exit 1
+fi
+if [ "$multiply" = "20" ];then
+	echo "Criando...."
+	echo -e 'nmap \c' >> /tmp/nmapsc2
+	cat /tmp/nmapsc >> /tmp/nmapsc2
+	echo 'Qual ip ou classe de ip voce deseja scanear?'
+	read classeip2
+	echo -e "$classeip2 \c" >> /tmp/nmapsc2
+	VARAVEL=`cat /tmp/nmapsc2`
+	echo $VARAVEL > $HOME/NmapScript
+	chmod 700 $HOME/NmapScript
+	rm /tmp/nmapsc*
+	echo "The script is on your Home dir"
+	pauseme
+	clear
+	exit 1
+fi
+if [ "$multiply" = "21" ];then
+	if [ -e "/tmp/nmapsc" ];then
+		rm /tmp/nmapsc*
+	fi
+	exit 1
+fi
+
+# 166 trojans cam be found here!!
+# 21,Doly Trojan 1.1
+# 25,Antigen
+# 31,Master Paradise
+# 80,Executor
+# 99,Hidden Port 2.0
+# 121,BO jammerkillahV
+# 456,HackersParadise
+# 555,Phase Zero
+# 666,Attack FTP
+# 777,Aimspy
+# 1000,Der Spaeher 3
+# 1001,Silencer
+# 1001,Silencer
+# 1001,WebEx
+# 1010,Doly Trojan 1.30
+# 1011,Doly Trojan 1.1+1.2
+# 1012,Doly Trojan X.x
+# 1015,Doly Trojan 1.5
+# 1016,Doly Trojan 1.6
+# 1033,Netspy
+# 1042,Bla1.1
+# 1080,Wingate Socks Proxy
+# 1170,Streaming Audio Trojan
+# 1207,SoftWar
+# 1234,Ultors Trojan
+# 1243,SubSeven
+# 1245,Vodoo
+# 1269,Maverick's Matrix
+# 1349,Back Orifice DLL
+# 1492,FTP99CMP
+# 1509,PsyberStreamingServer
+# 1600,Shiva Burka
+# 1807,SpySender
+# 1981,ShockRave
+# 1999,Backdoor
+# 1999,Transcout 1.1 + 1.2
+# 2000,Transscout
+# 2001,DerSpaeher 3
+# 2001,TrojanCow
+# 2023,Pass Ripper
+# 2115,Bugs
+# 2140,The Invasor
+# 2283,HVL Rat5
+# 2565,Striker
+# 2583,Wincrash2
+# 2801,Phineas
+# 3024,WinCrash
+# 3129,Masters Paradise
+# 3150,Deep Throat The Invasor
+# 3700,Portal of Doom
+# 3791,Total Eclypse (FTP)
+# 4092,WinCrash
+# 4321,Schoolbus 1.0
+# 4567,FileNail Danny
+# 4590,IcqTrojan
+# 4950,IcqTrojan
+# 4950,IcqTrojen
+# 5000,Socket23
+# 5001,Sockets de Troie
+# 5011,OOTLT
+# 5031,NetMetro1.0
+# 5032,NetMetropolitan 1.04
+# 5321,Firehotcker
+# 5400,BladeRunner
+# 5400,BackConstruction1.2
+# 5401,Blade Runner
+# 5402,Blade Runner
+# 5521,IllusionMailer
+# 5550,XTCP 2.0 + 2.01
+# 5569,RoboHack
+# 5714,WinCrash
+# 5741,WinCrash
+# 5742,Wincrash
+# 6000,The tHing 1.6
+# 6400,The tHing
+# 6669,Vampire 1.0
+# 6670,Deep Throat
+# 6671,DeepThroat 2.0 & 3.0
+# 6711,SubSeven
+# 6712,SubSeven
+# 6713,SubSeven
+# 6771,DeepThroat 2.0 & 3.0
+# 6776,SubSeven
+# 6883,DeltaSource
+# 6912,Shitheep
+# 6939,Indoctrination
+# 6969,Gatecrasher
+# 6970,Gatecrasher
+# 7000,Remote Grab
+# 7300,NetMonitor
+# 7301,NetMonitor
+# 7306,NetMonitor
+# 7307,NetMonitor
+# 7308,NetMonitor
+# 7789,iCkiller
+# 8787,Back Orifice 2000
+# 8879,Hack Office Armageddon
+# 9400,InCommand 1.0
+# 9872,PortalOfDoom
+# 9873,Portal of Doom
+# 9874,Portal of Doom
+# 9875,Portal of Doom
+# 9989,iNi-Killer
+# 9989,InIkiller
+# 10067,Portal of Doom
+# 10167,Portal of Doom
+# 10607,Coma Danny
+# 10666,Ambush
+# 11000,SennaSpyTrojans
+# 11223,ProgenicTrojan
+# 12076,Gjamer
+# 12223,Hack´99 KeyLogger
+# 12345,GabanBus NetBus
+# 12346,NetBus 1.x (avoiding Netbuster)
+# 12361,Whack-a-mole
+# 12362,Whack-a-mole
+# 12701,Eclipse 2000
+# 13700,Kuang2 The Virus
+# 16969,Priotrity
+# 20000,Millenium
+# 20001,Millennium
+# 20034,NetBus Pro
+# 20203,Logged!
+# 20203,Chupacabra
+# 20331,Bla
+# 21544,GirlFriend
+# 21554,GirlFriend
+# 22222,Prosiak 0.47
+# 23456,EvilFtp
+# 26274,Delta
+# 27374,SubSeven 2.1
+# 29891,The Unexplained
+# 30029,AOLTrojan1.1
+# 30100,NetSphere
+# 30101,NetSphere
+# 30102,NetSphere
+# 30133,Netsphere Final
+# 30303,Socket25
+# 30999,Kuang
+# 31337,Back Orifice
+# 31338,Back Orifice-DeepBO
+# 31339,NetSpy DK
+# 31666,BOWhack
+# 31785,Hack'a'tack
+# 31787,Hack'a'tack
+# 32418,Acid Battery 1.0
+# 33333,Prosiak
+# 33911,Trojan Spirit 2001
+# 34324,Tiny Telnet Server
+# 34324,BigGluck TN
+# 40412,TheSpy
+# 40421,Masters Paradise
+# 40422,Masters Paradise
+# 40423,Master Paradise
+# 40426,Masters Paradise
+# 43210,Schoolbus 1.6 & 2.0
+# 47262,Delta
+# 49301,Online Keylogger
+# 50505,Sockets de Troie
+# 50766,Fore
+# 53001,RemoteWindowsShutdown
+# 54320,Back Orifice 2000 (default port)
+# 54321,Schoolbus 1.6+2.0
+# 60000,DeepThroat 2.0 & 3.0
+# 61466,Telecommando
+# 65000,Devil 1.03

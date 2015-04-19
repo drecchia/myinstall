@@ -1,0 +1,73 @@
+#!/bin/sh
+# feito por ALASKA - #itapirados / #linuxall
+setterm -bold on -foreground yellow
+echo 'Detecting type of selected file................'
+setterm -default
+if [ `file -b $1 | grep -i "tar" | wc -l` = '1' ];then 
+	setterm -foreground cyan -bold on
+	echo 'File type tar detected...'
+	echo 'Doing...'
+	setterm -default
+	tar tf $1
+	setterm -bold on -foreground white
+	echo 'Do you wanna continue?(s/n)'
+	setterm -default
+	read iwanna
+	if [ "$iwanna" = 'y' -o "$iwanna" = 'Y' ];then
+	tar xvf $1 && rm $1
+	fi
+	if [ "$iwanna" = 's' -o "$iwanna" = 'S' ];then
+	tar xvf $1 && rm $1
+	fi
+	if [ "$iwanna" = 'n' -o "$iwanna" = 'N' ];then
+	setterm -bold on -foreground blue
+	echo 'Ok... lets stop right here...!'
+	setterm -default
+	fi
+fi
+if [ `file -b $1 | grep "gzip" | wc -l` = '1' ];then 
+	if [ `gunzip -l $1 2> /dev/null | grep -i ".tar" | wc -l` = '1' ];then
+		setterm -foreground cyan -bold on
+		echo 'File type tgz detected...'
+		echo 'Doing .......'
+		setterm -default
+		tar tzf $1
+		setterm -bold on -foreground white
+		echo 'Do you wanna continue?(s/n)'
+		setterm -default
+		read youwanna
+		if [ $youwanna = 's' -o $youwanna = 'S' ];then
+			tar xzf $1 && rm $1
+		fi
+		if [ $youwanna = 'y' -o $youwanna = 'Y' ];then
+			tar xzf $1 && rm $1
+		fi
+		if [ $youwanna = 'n' -o $youwanna = 'N' ];then
+			setterm -bold on -foreground blue 
+			echo 'Ok... lets stop right here...!'
+			setterm -default
+		fi
+	fi
+fi
+if [ `gunzip -l $1 2> /dev/null | grep -i -v ".tar" | grep -v ratio | wc -l` = '1' ];then
+	setterm -foreground cyan -bold on
+	echo 'File type gzip detected...'
+	echo 'Doing .......'
+	setterm -default
+	gunzip -l $1
+	setterm -bold on -foreground white
+	echo 'Do you wanna continue?(s/n)'
+	setterm -default
+	read wewanna
+	if [ $wewanna = 's' -o $wewanna = 'S' ];then
+		gunzip $1 && rm $1
+	fi
+	if [ $wewanna = 'y' -o $wewanna = 'Y' ];then
+		gunzip $1 && rm $1
+	fi
+	if [ $wewanna = 'n' -o $wewanna = 'N' ];then
+		setterm -bold on -foreground blue 
+		echo 'Ok... lets stop right here...!'
+		setterm -default
+	fi
+fi

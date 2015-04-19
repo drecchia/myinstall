@@ -1,0 +1,7 @@
+if [ -x /root/icones.txt ];then
+	rm -f /root/icones.txt 2> /dev/null
+fi
+find / -iname "*.png" >> /root/icones.txt &
+find / -iname "*.xbm" >> /root/icones.txt &
+find / -iname "*.xpm" >> /root/icones.txt &
+find / -iname "*.ico" >> /root/icones.txt &

@@ -1,0 +1,37 @@
+setterm -bold on;echo "Qual sua particao de Swap?";setterm -bold off
+read swapp
+setterm -bold on;echo "Qual sua particao ext2?";setterm -bold off
+read ext2p
+setterm -bold on;echo "Qual sua particao do windows?";setterm -bold off
+read winp
+setterm -bold on;echo "Qual seu local de montagem do cdrom?";setterm -bold off
+read cdromm
+setterm -bold on;echo "Qual seu device de cdrom?";setterm -bold off
+read devicecd
+setterm -bold on;echo "Onde voce monta seus disketes?";setterm -bold off
+read disk
+setterm -bold on;echo 'Voce possui mais de um cdrom?(y/n)';setterm -bold off
+read other
+case $other in
+y) echo "Onde voce gostaria que fosse montada?";
+read montedcd;
+echo "Qual seu device?";
+read dispcd2;
+echo "$dispcd2   $montedcd      iso9660 noauto,user,ro   0   0" >> /tmp/fstab.txt;;
+n) echo "Prosseguindo...";;
+esac
+echo "$swapp       swap          swap    defaults   0   0" > /tmp/fstab.txt
+echo "$ext2p       /             ext2    defaults   1   1" >> /tmp/fstab.txt
+echo "$winp        /win98        vfat    defaults  1    0" >> /tmp/fstab.txt
+echo "none         /dev/pts      devpts  gid=5,mode=620  0   0" >> /tmp/fstab.txt
+echo "none         /proc         proc    defaults   0   0" >> /tmp/fstab.txt
+echo "$devicecd	   $cdromm       iso9660 noauto,user,ro   0   0" >> /tmp/fstab.txt
+echo "/dev/fd0	$disk   auto    noauto,user,rw   0   0" >> /tmp/fstab.txt
+if [ -e "/tmp/fstab" ];then
+	rm /etc/fstab
+	mv /tmp/fstab.txt /etc/fstab
+	chmod ugo-x,ugo+r,go-w,u+rw /etc/fstab
+fi
+mkdir $montedcd
+mkdir $disk
+setterm -bold on;echo "                         Obrigado!";setterm -bold off

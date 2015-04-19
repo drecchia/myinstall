@@ -1,0 +1,64 @@
+ofando=`cat $1 | cut -c 1,2 | grep if | wc -l`
+ofando2=`cat $1 | cut -c 2,3 | grep if | wc -l`
+fofando=`cat $1 | cut -c 1,2 | grep fi | wc -l`
+fofando2=`cat $1 | cut -c 2,3 | grep fi | wc -l`
+whilery=`cat $1 | cut -c 1,2,3,4,5 | grep while | wc -l`
+whilery2=`cat $1 | cut -c 2,3,4,5,6 | grep while | wc -l`
+donery=`cat $1 | cut -c 1,2,3,4 | grep done | wc -l`
+donery2=`cat $1 | cut -c 2,3,4,5 | grep done | wc -l`
+fory=`cat $1 | cut -c 1,2,3 | grep for | wc -l`
+fory2=`cat $1 | cut -c 2,3,4 | grep for | wc -l`
+if [ "$fory2" != "$donery2" ];then
+	setterm -bold on -foreground red
+	echo 'Voce tem um POSSIVEL problema com for/done na coluna 2'
+	setterm -default
+else
+	setterm -bold on
+	echo 'Voce NAO tem problema com o for/done na coluna 2'
+	setterm -default
+fi
+if [ "$fory" != "$donery" ];then
+	setterm -bold on -foreground red
+	echo 'Voce tem um POSSIVEL problema com for/done na coluna 1'
+	setterm -default
+else
+	setterm -bold on
+	echo 'Voce NAO tem um problema com o for/done na coluna 1'
+	setterm -default
+fi
+if [ "$whilery2" != "$donery2" ];then
+	setterm -bold on -foreground red
+	echo 'Voce tem um POSSIVEL problema com o while/done na coluna  2'
+	setterm -default
+else
+	setterm -bold on
+	echo 'Voce NAO tem um problema com o while/done na coluna 2' 
+	setterm -default
+fi
+if [ "$ofando2" != "$fofando2" ];then
+	setterm -bold on -foreground red
+	echo 'Voce tem um POSSIVEL problema com os fi/if na coluna 2'
+	setterm -default
+else
+	setterm -bold on
+	echo 'Voce NAO tem um problema com os if/fi na coluna 2'
+	setterm -default
+fi
+if [ "$whilery" != "$donery" ];then
+	setterm -bold on -foreground red
+	echo 'Voce tem um POSSIVEL problema com o while/done na coluna  1'
+	setterm -default
+else
+	setterm -bold on
+	echo 'Voce NAO tem um problema com o while/done na coluna 1' 
+	setterm -default
+fi
+if [ "$ofando" != "$fofando" ];then
+	setterm -bold on -foreground red
+	echo 'Voce tem um POSSIVEL problema com os fi/if na coluna 1'
+	setterm -default
+else
+	setterm -bold on
+	echo 'Voce NAO tem um problema com os if/fi na coluna 1'
+	setterm -default
+fi

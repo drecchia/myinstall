@@ -1,0 +1,40 @@
+cd /usr/share/pixmaps/splash
+splash0="/usr/share/pixmaps/splash/gnome-splash.png"
+splash1="/usr/share/pixmaps/splash/gnome-splash1.png"
+splash2="/usr/share/pixmaps/splash/gnome-splash2.png"
+splash3="/usr/share/pixmaps/splash/gnome-splash3.png"
+splash4="/usr/share/pixmaps/splash/gnome-splash4.png"
+splash5="/usr/share/pixmaps/splash/gnome-splash5.png"
+splash6="/usr/share/pixmaps/splash/gnome-splash6.png"
+splash7="/usr/share/pixmaps/splash/gnome-splash7.png"
+splash8="/usr/share/pixmaps/splash/gnome-splash8.png"
+splash9="/usr/share/pixmaps/splash/gnome-splash9.png"
+splash10="/usr/share/pixmaps/splash/gnome-splash10.png"
+splash11="/usr/share/pixmaps/splash/gnome-splash11.png"
+splash12="/usr/share/pixmaps/splash/gnome-splash12.png"
+splash13="/usr/share/pixmaps/splash/gnome-splash13.png"
+splash14="/usr/share/pixmaps/splash/gnome-splash14.png"
+splash15="/usr/share/pixmaps/splash/gnome-splash15.png"
+splash16="/usr/share/pixmaps/splash/gnome-splash16.png"
+splash100="/usr/share/pixmaps/splash/gnome-splash100.png"
+if [ -e "/usr/share/pixmaps/splash/gnome-splash.png" ] ;then
+	mv $splash0 $splash100
+	mv $splash1 $splash0
+	mv $splash2 $splash1
+	mv $splash3 $splash2
+	mv $splash4 $splash3
+	mv $splash5 $splash4
+	mv $splash6 $splash5
+	mv $splash7 $splash6
+	mv $splash8 $splash7
+	mv $splash9 $splash8
+	mv $splash10 $splash9
+	mv $splash11 $splash10
+	mv $splash12 $splash11
+	mv $splash13 $splash12
+	mv $splash14 $splash13
+	mv $splash15 $splash14
+	mv $splash16 $splash15
+	mv $splash100 $splash16
+fi
+startx -- -bpp 16 > /dev/null 2> /root/.x.erro &

@@ -1,0 +1,124 @@
+clear
+if [ `whoami` != "root" ];then
+  setterm -bold on -foreground yellow
+  echo "                 Voce tem que ser R00T para prosseguir"
+  setterm -default
+exit 1
+fi
+setterm -bold on
+setterm -blink on -foreground green;echo "                         Seja bem Vindo $USER ";setterm -default
+trap "" 2 3 0 5 6 9 15 18 19 20 21 22
+echo "           Selecione opcoes numericas para instalar...."
+echo "    Selecione opcoes Alfabeticas para maiores informacoes...."
+echo "(1)  (a) Instala akelas msgs no lilo e nomeia sua particao"
+echo "(2)  (b) Instala o cdapp"
+echo "(3)  (c) Instala aplicativos do find"
+echo "(4)  (d) Instala fstab com minhas configuracoes"
+echo "(5)  (e) Instala protecao nos hosts"
+echo "(6)  (f) Corrige algum modos de propriedades"
+echo "(7)  (g) Instala front-end para o nmap 2.54"
+echo "(8)  (h) Instala front-end para o Kill User"
+echo "(9)  (i) Instala o som cmpci e seus aplics"
+echo "(10) (j) Instala VMLINUZ"
+echo "(11) (k) Adiciona algumas entradas ao profile"
+echo "(12) (l) Sai para o Shell"
+setterm -bold off
+read answer
+case $answer in
+a) echo "Num tem mais oque dizer";
+   pauseme;
+   clear;
+   ./INSTALL;;	
+b) echo "Aplicativos para ejetar CD e montar";
+   pauseme;
+   clear;
+   ./INSTALL;;
+c) echo "Find no group e no user";
+   pauseme;
+   clear;
+   ./INSTALL;;
+d) echo "Instala fstab com suas preferencias";
+   pauseme;
+   clear;
+   ./INSTALL;;
+e) echo "Tenta Lhe dar um pouco mais de protecao";
+   pauseme;
+   clear;
+   ./INSTALL;;
+f) echo "Chmod...";
+   pauseme;
+   clear;
+   ./INSTALL;;
+g) echo "scripts prontos do nmap para procura de certos trojan em rede";
+   pauseme;
+   clear;
+   ./INSTALL;;
+h) echo "scripts prontos do killuser feito por ALASKA";
+   pauseme;
+   clear;
+   ./INSTALL;;
+i) echo "Instala a placa de som e aplics para remover a qq hora";
+   pauseme;
+   clear;
+   ./INSTALL;;
+j) echo "Movera o seu vmlinuz atual e adicionara 2 entradas no lilo.conf";
+   pauseme;
+   clear;
+   ./INSTALL;;
+k) echo "Cria algums aliases";
+   pauseme;
+   clear;
+   ./INSTALL;;
+l) echo "Sai deste Script";
+   pauseme;
+   clear;
+   ./INSTALL;;
+1) ./SRC/install.bootmsg;
+   pauseme;
+   clear;
+   ./INSTALL;;
+2) ./SRC/install.cdapp;
+   pauseme;
+   clear;
+   ./INSTALL;;
+3) ./SRC/install.finds;
+   pauseme;
+   clear;
+   ./INSTALL;;
+4) ./SRC/install.fstab;
+   pauseme;
+   clear;
+   ./INSTALL;; 
+5) ./SRC/install.hosts;
+   pauseme;
+   clear;
+   ./INSTALL;;
+6) ./SRC/install.makesecure;
+   pauseme;
+   clear;
+   ./INSTALL;;
+7) ./SRC/install.nmap;
+   pauseme;
+   clear;
+   ./INSTALL;;
+8) cp ./SRC/kuscript /usr/local/bin;
+   echo "adiconado /usr/local/bin/kuscript";
+   pauseme;
+   clear;
+   ./INSTALL;;
+9) ./SRC/install.soundcmpci;
+   pauseme;
+   clear;
+   ./INSTALL;;
+10) ./SRC/install.vmlinuz;
+    pauseme;
+    clear;
+   ./INSTALL;;
+11) ./SRC/installadds.profile;
+    pauseme;
+    clear;
+   ./INSTALL;;
+12) clear;
+    exit;;
+*) echo "                 Nenhuma das opcoes selecionadas";pauseme;./INSTALL;;
+esac

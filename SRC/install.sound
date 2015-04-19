@@ -1,0 +1,34 @@
+echo "Qual seu drive ?"
+echo '1- CMPCI'
+echo '2- Sound Blaster'
+read blask
+case $blask in
+1) echo "modprobe cmpci" >> /etc/rc.d/rc.local;
+echo 'Foram adicionados os seguintes arquivos:';
+echo '/usr/local/bin/mysound - ativa som';
+echo '/usr/local/bin/mysoundout - reverse';
+echo 'modprobe cmpci' > ./mysound; 
+echo 'rmmod cmpci' > ./mysoundout;
+echo 'rmmod soundcore' >> ./mysoundout;;
+2) echo "ESTE modulo ainda eh velho";;
+esac
+if [ -x "./mysound" ];then
+	mv -f ./mysound /usr/local/bin 
+	mv -f ./mysoundout /usr/local/bin
+	chmod u+rwx,go-w,go+rx /usr/local/bin/mysound*
+	setterm -bold on;echo -e "\f"'Vc deseja que os usuarios escutem musica?(y/n)'
+	echo -e "\f"
+	setterm -bold off
+	read music
+	case $music in
+	Y)chmod 666 /dev/mixer;
+	chmod 666 /dev/dsp;
+	chmod 666 /dev/audio;;
+	y) chmod 666 /dev/mixer;
+	chmod 666 /dev/dsp;
+	chmod 666 /dev/audio;;
+	n) echo "Instalacao completa";;
+	N) echo "Instalacao completa";;
+	esac
+fi
+echo "Instalacao completa"

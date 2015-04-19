@@ -1,0 +1,12 @@
+echo "           FucK 0u1 0f m4 SySt3M"! > /tmp/bootmp.txt
+echo "DOS     - DOn'T YoU n0W whAt iS DoS???         " >> /tmp/bootmp.txt
+echo "Linux   - ThE BeSt SyStEm... sOrrY.. YoU Can'T!" >> /tmp/bootmp.txt
+ls /tmp/bootmp.txt && mv -f /boot/boot_message.txt /boot/boot_message.txt.old && mv -f /tmp/bootmp.txt /boot/boot_message.txt
+chmod ugo-x,ugo+r,go-w,u+rw /boot/boot_message.txt
+lilo &> /dev/null
+setterm -bold on;echo "Que Nome vc quer dar a sua Particao Linux?";setterm -bold off
+read partl
+e2label /dev/hda2 $partl
+echo "aumix -L > /dev/null" >> /etc/rc.d/rc.local 
+echo "history -c" >> /etc/rc.d/rc.local
+setterm -bold on;echo "Prontinho kerida";setterm -bold off

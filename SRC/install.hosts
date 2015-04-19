@@ -1,0 +1,34 @@
+head -n10 /etc/hosts.allow > /tmp/ha.txt
+echo "ALL: 127.0.0.1" >> /tmp/ha.txt
+tail -n1 /etc/hosts.allow >> /tmp/ha.txt
+echo "# wu.ftpd: 200.241.52.183 - este ip pode accesar o ftp" >> /tmp/ha.txt
+if [ -e /tmp/ha.txt ];then
+	rm -f /etc/hosts.allow
+	mv /tmp/ha.txt /etc/hosts.allow
+fi
+chmod 644 /etc/hosts.allow
+echo "#" >> /tmp/hd.txt
+echo "# hosts.deny	This file describes the names of the hosts which are" >> /tmp/hd.txt
+echo "#		*not* allowed to use the local INET services, as decided" >> /tmp/hd.txt
+echo "#		by the '/usr/sbin/tcpd' server." >> /tmp/hd.txt
+echo "#" >> /tmp/hd.txt
+echo "# Version: @(#)/etc/hosts.deny	1.00	05/28/93" >> /tmp/hd.txt
+echo "#" >> /tmp/hd.txt
+echo "# Author:	Fred N. van Kempen, <waltje@uwalt.nl.mugnet.org" >> /tmp/hd.txt
+echo "#" >> /tmp/hd.txt
+echo "# If you wanna allow one use like:" >> /tmp/hd.txt
+echo "# All:All except 127.0.0.1" >> /tmp/hd.txt
+echo "# and now the 127.0.0.1 will be allowed or put on the hosts.allow" >> /tmp/hd.txt
+echo "# All:All except local" >> /tmp/hd.txt
+echo "# Ips locais poderao acessar qualquer servico!" >> /tmp/hd.txt
+echo "# Ex: in.telnetd: 200.241.52.137" >> /tmp/hd.txt
+echo "# Diz q este ip pode acessar o servico de telnet" >> /tmp/hd.txt
+echo "#" >> /tmp/hd.txt
+echo "All:All" >> /tmp/hd.txt
+echo "# End of hosts.deny." >> /tmp/hd.txt
+if [ -e /tmp/hd.txt ];then
+	rm -f /etc/hosts.deny
+	mv /tmp/hd.txt /etc/hosts.deny
+fi
+chmod 644 /etc/hosts.deny
+setterm -bold on; echo "            Intalacao completa";setterm -bold off

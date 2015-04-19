@@ -1,0 +1,16 @@
+if [ -e "/vmlinuz" ];then
+	mv -f /vmlinuz /vmlinuzold
+fi
+cp ./SRC/vmlinuz /
+chmod ugo+r,ugo-x,go-w,u+w /vmlinuz
+echo "Qual sua particao ext2?"
+read ext23
+echo "Qual o nome para carregar o lilo antigo no boot ?"
+read lilold
+echo "image = /vmlinuzold" >> /etc/lilo.conf
+echo "  root = $ext23" >> /etc/lilo.conf
+echo "  label = $lilold" >> /etc/lilo.conf
+echo "  read-only" >> /etc/lilo.conf
+lilo &> /dev/null
+echo                    "Instalacao completa!"
+setterm -bold off

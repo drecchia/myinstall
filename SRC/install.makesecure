@@ -1,0 +1,62 @@
+chmod go-rwx /var/adm/*
+chmod go-x /dev/null
+chmod go-x /dev/console
+chmod go-x /dev/tty
+chmod o-w /dev/kmem
+chmod o-w /dev/mem
+chmod go-rw  /etc/lilo.conf
+chmod go-rwx /var/adm/debug
+chmod go-rwx /var/adm/messages
+chmod go-rwx /var/adm/syslog
+chmod go-rwx /var/adm/sulog
+chmod go-rwx /root
+chmod go-rw  /etc/exports
+chmod go-rw  /etc/fstab
+chmod go-rw  /etc/hosts.lpd
+chmod go-rw  /etc/inetd.conf
+chmod go-rw  /etc/rc.d/
+chmod go-w /etc/shells
+setterm -bold on;echo " oK.. NoW YoUr syStEm haVe leSS HoLeZ";setterm -bold off
+if [ -e "/home/ftp" ];then
+	touch /home/ftp/.rhosts /home/ftp/.forward
+	chown root.root /home/ftp/.rhosts /home/ftp/.forward
+	chmod 400 /home/ftp/.rhosts /home/ftp/.forward
+fi
+setterm -bold on;echo '"Vc possui usuarios?"(y/n)';setterm -bold off
+read possuido
+cp ./SRC/login.defs /etc
+chmod 644 /etc/login.defs
+if [ $possuido = "y" -o $possuido = "Y" ];then
+	echo "Qual o home do usuario? Ex: /home/varley"
+	read huser
+	if [ -e "$huser" ];then
+		touch $huser/.rhosts $huser/.forward
+		chown root.root $huser/.rhosts $huser/.forward 
+		chmod 400 $huser/.rhosts $huser/.forward
+	else
+		setterm -bold on -foreground yellow
+		echo "Este diretorio nao existe";setterm -default
+	fi
+fi
+echo 
+echo "Entre com as linhas 'PASSWORD = senha' e 'restricted'"
+echo "Em seu lilo.conf"
+head -n54 /etc/ftpaccess > /etc/ftpa.txt
+echo "# guestgroup ftponly" >> /etc/ftpa.txt
+echo "guestgroup users" >> /etc/ftpa.txt
+echo "email	user@hostname" >> /etc/ftpa.txt
+if [ -e /etc/fta.txt ];then
+	rm /etc/ftpaccess
+	mv /etc/ftpa.txt /etc/ftpaccess
+	chmod 644 /etc/ftpaccess
+fi
+echo "Voce deseja logar LOGs de su e login invalidos?"
+read invalid
+case $invalid in
+y) echo "auth.*					/var/adm/sulog" >> /etc/syslog.conf;
+touch /var/adm/sulog;
+chmod 700 /var/adm/sulog;
+killall -HUP syslogd;
+syslogd;;
+n) echo "oK....";;
+esac
